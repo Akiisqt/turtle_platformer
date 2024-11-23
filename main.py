@@ -18,12 +18,12 @@ class Main:
 
         self.main_menu()
         self.screen.mainloop()
-    #todo fix when finishing all levels return back to main menu
+        
     def main_menu(self):
         self.debounce = True
         self.render.clear()
-        self.player.ht()
         self.player.clear()
+        self.player.ht()
         self.writer.text("Press 'Enter' to Start", position=(0, 375), clear = True)
         self.debounce = False
         self.screen.onkey(self.start_game, "Return")
@@ -32,13 +32,14 @@ class Main:
         if self.debounce:
             return
         self.debounce = True
+        print(self.debounce)
         self.writer.clear()
 
         objects = load_objects_from_file(f"levels/{self.level}.json")
         if not objects:
             self.level = 0
             return self.main_menu()
-
+        
         self.render.clear()
         self.render.update(objects)
 
@@ -64,7 +65,7 @@ class Main:
             case "death":
                 self.debounce = False
                 self.writer.clear()
-                self.writer.text("You Died!", position=(0, 375))
+                self.writer.text("You Died!", position=(0, 375),clear=True)
                 self.writer.text("Press 'Enter' to Restart", position=(0, 350))
                 self.screen.onkey(self.start_game, "Return")
             case "end":
